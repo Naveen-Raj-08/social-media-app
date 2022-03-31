@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Color variables
+$black-color: #333;
+$white-color: #fff;
+$error: #ff0000;
+
+html,
+body {
+  background-color: $white-color;
+  color: $black-color;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.page__header {
+  padding: 1.5rem 0;
+  .list {
+    margin: 0;
+
+    .link {
+      min-width: 100px;
+      text-align: right;
+      a {
+        display: inline-block;
+        color: $black-color;
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    .form-error {
+      color: #ff0000;
+      font-size: 15px;
+    }
+    width: 100%;
+    text-align: center;
+    .fieldset {
+      width: 100%;
+      .input {
+        padding: 10px 20px;
+        display: block;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+
+        &::placeholder {
+          color: #b2b2b2;
+        }
+
+        &:focus {
+          outline: none;
+          border: 1px solid #242424;
+
+          &::placeholder {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
