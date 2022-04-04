@@ -36,7 +36,7 @@ export const Signup = () => {
     if (!Name && !Email && !Password) {
       alert("Don't leave it as blank!!!");
     } else {
-      registerWithEmailAndPassword(Name, Email, Password);
+      console.log(registerWithEmailAndPassword(Name, Email, Password));
       navigate("/login");
     }
   };
@@ -46,6 +46,7 @@ export const Signup = () => {
 
   return (
     <>
+      <title>Signup Page</title>
       <div className="form">
         <h2 className="display-5 text-capitalize">Sign up</h2>
         <form className="pt-2" onSubmit={handleRegister} autoComplete="off">

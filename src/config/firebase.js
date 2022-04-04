@@ -10,7 +10,7 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-
+import { getStorage, ref } from "firebase/storage";
 import {
   getFirestore,
   query,
@@ -35,6 +35,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const DB = getFirestore(app);
+const storage = getStorage();
 
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
@@ -103,4 +104,6 @@ export {
   registerWithEmailAndPassword,
   sendPasswordReset,
   logOut,
+  storage,
+  ref,
 };

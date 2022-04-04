@@ -78,3 +78,72 @@ body {
     }
   }
 }
+
+.post-form {
+  max-width: 500px;
+  margin: 10px 0;
+
+  .input {
+    position: relative;
+    > span {
+      position: absolute;
+      max-width: 200px;
+      width: 100%;
+      right: 10px;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 50%;
+      color: #333;
+      top: 50%;
+      transform: translateY(-50%);
+
+    }
+  }
+
+     .field {
+      padding: 10px 20px;
+      display: block;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      position: relative;
+
+      &::-webkit-file-upload-button{
+        visibility: hidden
+      }
+      &[type=file] {
+        color: #fff;
+
+        &::before{
+          content: 'Select the file';
+          width: 20%;
+          height: 80%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 20px;
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+      &::placeholder {
+        color: #b2b2b2;
+      }
+
+      &:focus {
+        outline: none;
+        border: 1px solid #242424;
+
+        &::placeholder {
+          color: #fff;
+        }
+      }
+    }
+}
+

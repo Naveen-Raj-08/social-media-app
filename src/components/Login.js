@@ -21,40 +21,46 @@ export const Login = () => {
     setUserPassword(e.target.value);
   };
   const handlelogin = (e) => {
-    logInWithEmailAndPassword(UserMail, UserPassword);
+    e.preventDefault();
+    console.log(logInWithEmailAndPassword(UserMail, UserPassword));
   };
 
   useEffect(() => {
+    console.log(user);
+
     if (loading) {
       return;
     }
   }, [user, loading, error]);
 
   return (
-    <div className="form">
-      <h2 className="display-5 text-capitalize">Login</h2>
-      <form className="pt-2" onSubmit={handlelogin} autoComplete="off">
-        <div className="fieldset">
-          <input
-            className="input"
-            type="email"
-            placeholder="Enter your email"
-            onChange={handleuseremail}
-          />
-          <input
-            className="input"
-            type="password"
-            placeholder="Enter the pasword.."
-            onChange={handleuserpassword}
-          />
-        </div>
-        <button className="btn btn-primary" type="submit">
-          Login
-        </button>
-        <p>
-          Don't have an account? <Link to="/signup">Sign up</Link> now.
-        </p>
-      </form>
-    </div>
+    <>
+      <title>Login Page</title>
+      <div className="form">
+        <h2 className="display-5 text-capitalize">Login</h2>
+        <form className="pt-2" onSubmit={handlelogin} autoComplete="off">
+          <div className="fieldset">
+            <input
+              className="input"
+              type="email"
+              placeholder="Enter your email"
+              onChange={handleuseremail}
+            />
+            <input
+              className="input"
+              type="password"
+              placeholder="Enter the pasword.."
+              onChange={handleuserpassword}
+            />
+          </div>
+          <button className="btn btn-primary" type="submit">
+            Login
+          </button>
+          <p>
+            Don't have an account? <Link to="/signup">Sign up</Link> now.
+          </p>
+        </form>
+      </div>
+    </>
   );
 };
