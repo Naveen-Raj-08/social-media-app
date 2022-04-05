@@ -1,7 +1,7 @@
-import { DB, ref, storage } from "../config/firebase";
-import React, { useState } from "react";
-import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
+import {DB, ref, storage} from "../config/firebase";
+import React, {useState} from "react";
+import {getDownloadURL, uploadBytesResumable} from "firebase/storage";
+import {addDoc, collection} from "firebase/firestore";
 
 export const PostForm = () => {
   const [PostImage, setPostImage] = useState(null);
@@ -19,7 +19,6 @@ export const PostForm = () => {
   const uploadFile = (file) => {
     const PNG = "image/png";
     const JPEG = "image/jpeg";
-    console.log(file);
     if (file.type === PNG || file.type === JPEG) {
       const storageRef = ref(storage, `/images/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -58,7 +57,9 @@ export const PostForm = () => {
   };
   const postSubmit = (e) => {
     e.preventDefault();
+    const timeStamp = new Date().toLocaleString();
     let postData = {
+      createdAt: timeStamp,
       File: PostImage,
       Content: PostContent,
     };
@@ -79,7 +80,7 @@ export const PostForm = () => {
         {ShowProgress === true ? (
           <p
             className="progress-bar"
-            style={{ width: `${ProgressBar}%`, height: "5px" }}
+            style={{width: `${ProgressBar}%`, height: "5px"}}
           ></p>
         ) : null}
         <div className="fieldset input">

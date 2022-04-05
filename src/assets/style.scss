@@ -78,9 +78,20 @@ body {
     }
   }
 }
+.post-image {
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+  }
+}
+
+.scrollable {
+  max-height: 80vh;
+  overflow-y: auto;
+}
 
 .post-form {
-  max-width: 500px;
   margin: 10px 0;
 
   .input {
@@ -98,52 +109,50 @@ body {
       color: #333;
       top: 50%;
       transform: translateY(-50%);
-
     }
   }
 
-     .field {
-      padding: 10px 20px;
-      display: block;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-bottom: 20px;
-      position: relative;
+  .field {
+    padding: 10px 20px;
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
 
-      &::-webkit-file-upload-button{
-        visibility: hidden
-      }
-      &[type=file] {
-        color: #fff;
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    &[type="file"] {
+      color: #fff;
 
-        &::before{
-          content: 'Select the file';
-          width: 20%;
-          height: 80%;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          left: 20px;
-          color: #333;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-        }
-      }
-      &::placeholder {
-        color: #b2b2b2;
-      }
-
-      &:focus {
-        outline: none;
-        border: 1px solid #242424;
-
-        &::placeholder {
-          color: #fff;
-        }
+      &::before {
+        content: "Select the file";
+        width: 20%;
+        height: 80%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 20px;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
       }
     }
-}
+    &::placeholder {
+      color: #b2b2b2;
+    }
 
+    &:focus {
+      outline: none;
+      border: 1px solid #242424;
+
+      &::placeholder {
+        color: #fff;
+      }
+    }
+  }
+}
