@@ -90,6 +90,30 @@ body {
   max-height: 80vh;
   overflow-y: auto;
 }
+.post-info {
+  span {
+    font-size: 12px;
+    color: #747474;
+  }
+}
+.post-created {
+  font-size: 12px;
+  color: #909090;
+  margin-bottom: 20px;
+}
+
+.post-actions {
+  border-top: 1px solid #ccc;
+
+  .btn {
+    max-width: calc(100% / 3);
+    width: 100%;
+    border-right: 1px solid #ccc;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 10px 0;
+  }
+}
 
 .post-form {
   margin: 10px 0;

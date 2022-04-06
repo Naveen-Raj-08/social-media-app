@@ -62,6 +62,8 @@ export const PostForm = () => {
       createdAt: timeStamp,
       File: PostImage,
       Content: PostContent,
+      Likes: 0,
+      Comments: 0,
     };
 
     addData(postData);
