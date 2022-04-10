@@ -1,7 +1,7 @@
-import {DB, ref, storage} from "../config/firebase";
-import React, {useState} from "react";
-import {getDownloadURL, uploadBytesResumable} from "firebase/storage";
-import {addDoc, collection} from "firebase/firestore";
+import { DB, ref, storage } from "../config/firebase";
+import React, { useState } from "react";
+import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection, deleteDoc } from "firebase/firestore";
 
 export const PostForm = () => {
   const [PostImage, setPostImage] = useState(null);
@@ -63,7 +63,7 @@ export const PostForm = () => {
       File: PostImage,
       Content: PostContent,
       Likes: 0,
-      Comments: 0,
+      Comments: [],
     };
 
     addData(postData);
@@ -82,7 +82,7 @@ export const PostForm = () => {
         {ShowProgress === true ? (
           <p
             className="progress-bar"
-            style={{width: `${ProgressBar}%`, height: "5px"}}
+            style={{ width: `${ProgressBar}%`, height: "5px" }}
           ></p>
         ) : null}
         <div className="fieldset input">

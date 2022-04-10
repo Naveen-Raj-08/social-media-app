@@ -87,9 +87,92 @@ body {
 }
 
 .scrollable {
-  max-height: 80vh;
+  max-height: calc(100vh - 30px);
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #242424;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #cccccc30;
+
+  }
 }
+
+
+.more-option {
+  background-color: transparent;
+  border: none;
+  min-width: 20px;
+  max-height: 20px;
+
+  > span {
+    width: 3px;
+    height: 3px;
+    margin: 3px auto;
+    display: flex;
+    background-color: #ccc;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 50%;
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.drop-box {
+  position: relative;
+  padding: 0;
+  
+  .options {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #74747430;
+    border-radius: 5px;
+    right: 10px;
+    top: 20px;
+    min-width: 120px;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s ease-in-out;
+
+
+    .btn {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      color: #242424;
+      width: 100%;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+    }
+  }
+
+  .options.show {
+    max-height: initial;
+    opacity: 1;
+    z-index: 10;
+    top: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;   
+  }
+}
+
+
+
 .post-info {
   span {
     font-size: 12px;

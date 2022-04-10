@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {RiThumbUpLine} from "react-icons/ri";
-import {BiMessageSquareDetail} from "react-icons/bi";
-import {FiSend} from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { RiThumbUpLine } from "react-icons/ri";
+import { BiMessageSquareDetail } from "react-icons/bi";
+import { FiSend } from "react-icons/fi";
+import { Modal, Button } from "react-bootstrap";
 import {
   collection,
   doc,
@@ -12,15 +13,24 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import {DB} from "../config/firebase";
+import { DB } from "../config/firebase";
 
-export const Post = ({data}) => {
-  const {Content, File, Likes, Comments, createdAt} = data.data;
+export const Post = ({ data, deletePost }) => {
+  const { Content, File, Likes, Comments, createdAt } = data.data;
   const [Like, setLike] = useState(Likes);
+  const [ShowOptions, setShowOptions] = useState(false);
+  const [Show, setShow] = useState(true);
 
   const increaeLike = () => {
-    console.log(Likes);
     setLike(Like + 1);
+  };
+
+  const showOptions = () => {
+    setShowOptions(!ShowOptions);
+  };
+
+  const handleDelete = () => {
+    deletePost(data.id);
   };
 
   useEffect(() => {
@@ -34,10 +44,39 @@ export const Post = ({data}) => {
     updatePostLike();
   }, [Like]);
 
+  const ShowModal = () => {
+    return (
+      <Modal show={Show}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary">Close</Button>
+          <Button variant="primary">Save Changes</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
   return (
     <div className="col-12 mb-4">
       <div className="card pt-3 px-3">
-        <span className="post-created">{createdAt}</span>
+        <div className="row p-0 m-0">
+          <span className="post-created col p-0">{createdAt}</span>
+          <div className="drop-box col-auto p-0">
+            <button className="more-option" onClick={showOptions}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div className={ShowOptions === true ? "options show" : "options"}>
+              <button className="btn btn-secondary" onClick={handleDelete}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="post-image">
           <img src={File} alt={Content} />
         </div>
