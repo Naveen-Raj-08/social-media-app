@@ -171,6 +171,9 @@ body {
   }
 }
 
+.open-comments {
+  cursor: pointer;
+}
 
 
 .post-info {
@@ -191,10 +194,12 @@ body {
   .btn {
     max-width: calc(100% / 3);
     width: 100%;
-    border-right: 1px solid #ccc;
     padding-top: 0;
     padding-bottom: 0;
     margin: 10px 0;
+  }
+  .btn:not(:last-child) {
+    border-right: 1px solid #ccc;
   }
 }
 

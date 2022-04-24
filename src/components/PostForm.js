@@ -1,7 +1,7 @@
 import { DB, ref, storage } from "../config/firebase";
 import React, { useState } from "react";
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, deleteDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 export const PostForm = () => {
   const [PostImage, setPostImage] = useState(null);

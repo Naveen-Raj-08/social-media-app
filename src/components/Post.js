@@ -2,24 +2,16 @@ import React, { useEffect, useState } from "react";
 import { RiThumbUpLine } from "react-icons/ri";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { FiSend } from "react-icons/fi";
-import { Modal, Button } from "react-bootstrap";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { collection, doc, updateDoc } from "firebase/firestore";
 import { DB } from "../config/firebase";
+import { CommentPopup } from "./CommentPopup";
 
 export const Post = ({ data, deletePost }) => {
   const { Content, File, Likes, Comments, createdAt } = data.data;
   const [Like, setLike] = useState(Likes);
   const [ShowOptions, setShowOptions] = useState(false);
-  const [Show, setShow] = useState(true);
+  const [ShowModal, setShowModal] = useState(false);
+  const [OpenUserComments, setOpenUserComments] = useState(false);
 
   const increaeLike = () => {
     setLike(Like + 1);
@@ -33,31 +25,35 @@ export const Post = ({ data, deletePost }) => {
     deletePost(data.id);
   };
 
+  const handleCommentModal = () => {
+    setShowModal(!ShowModal);
+  };
+
+  // Adding comments
+  const addComment = (comment) => {
+    postComments(comment);
+  };
+
+  const postComments = async (comment) => {
+    let collecRef = collection(DB, "Posts");
+    await updateDoc(doc(collecRef, data.id), {
+      Comments: [...Comments, comment],
+    });
+  };
+
+  const handleOpenComments = () => {
+    setOpenUserComments(!OpenUserComments);
+  };
+
   useEffect(() => {
     const updatePostLike = async () => {
-      const collecRef = collection(DB, "Posts");
+      let collecRef = collection(DB, "Posts");
       await updateDoc(doc(collecRef, data.id), {
         Likes: Like,
       });
     };
-
     updatePostLike();
-  }, [Like]);
-
-  const ShowModal = () => {
-    return (
-      <Modal show={Show}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save Changes</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
+  }, [Like, data.id]);
 
   return (
     <div className="col-12 mb-4">
@@ -85,21 +81,47 @@ export const Post = ({ data, deletePost }) => {
         </div>
         <div className="post-info d-flex justify-content-between align-items-center">
           <span>{Likes} Likes</span>
-          <span>{Comments} Comments</span>
+          <span className="open-comments" onClick={handleOpenComments}>
+            {Comments.length} Comments
+          </span>
         </div>
+        {OpenUserComments === false ? (
+          <div className="post-actions d-flex align-items-center justify-content-between ">
+            <button className="btn btn-like" onClick={increaeLike}>
+              <RiThumbUpLine /> Like
+            </button>
+            <button className="btn btn-like" onClick={() => setShowModal(true)}>
+              <BiMessageSquareDetail /> Comment
+            </button>
+            <button className="btn btn-like">
+              <FiSend /> Share
+            </button>
+          </div>
+        ) : null}
 
-        <div className="post-actions d-flex align-items-center justify-content-between ">
-          <button className="btn btn-like" onClick={increaeLike}>
-            <RiThumbUpLine /> Like
-          </button>
-          <button className="btn btn-like">
-            <BiMessageSquareDetail /> Comment
-          </button>
-          <button className="btn btn-like">
-            <FiSend /> Share
-          </button>
-        </div>
+        {OpenUserComments === true ? (
+          Comments.length > 0 ? (
+            <div className="card p-4 mb-4 ">
+              {Comments.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <ul className="list list-unstyled">
+                      <li className="comment">{item}</li>
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            "No Comment for this Post"
+          )
+        ) : null}
       </div>
+      <CommentPopup
+        handleModal={handleCommentModal}
+        openModal={ShowModal}
+        addComments={addComment}
+      />
     </div>
   );
 };
