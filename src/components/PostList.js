@@ -26,7 +26,6 @@ export const PostList = () => {
 
   return (
     <>
-      <p>Here is the Post list</p>
       <div className="row">
         {Posts === null ? (
           <span className="spinner-border"></span>
