@@ -18,7 +18,7 @@ export const Homepage = () => {
       <title>Home Page</title>
       <div className="container">
         {/* The Page Header */}
-        {/* <Header /> */}
+        <Header />
         {/* The Page Footer */}
         <div className="row pt-4">
           <div className="col-md-5 ">

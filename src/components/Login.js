@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  auth,
-  logInWithEmailAndPassword,
-  signInWithGoogle,
-} from "../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { DB } from "../config/firebase";
+import { validateUser } from "./Validation";
 
 export const Login = () => {
   const [UserMail, setUserMail] = useState("");
   const [UserPassword, setUserPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [Users, setUsers] = useState(null);
+  const [Loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const querySnapshot = await getDocs(collection(DB, "users"));
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        users.push({ id: doc.id, data: doc.data() });
+      });
+      setUsers(users);
+    };
+    fetchPost();
+  }, [Users]);
 
   const handleuseremail = (e) => {
     setUserMail(e.target.value);
@@ -22,16 +33,17 @@ export const Login = () => {
   };
   const handlelogin = (e) => {
     e.preventDefault();
-    console.log(logInWithEmailAndPassword(UserMail, UserPassword));
-  };
-
-  useEffect(() => {
-    console.log(user);
-
-    if (loading) {
-      return;
+    setLoading(true);
+    const userAvailable = validateUser(Users, UserMail, UserPassword);
+    if (userAvailable) {
+      setTimeout(() => {
+        setUserMail("");
+        setUserPassword("");
+        setLoading(false);
+        navigate("/home");
+      }, 1500);
     }
-  }, [user, loading, error]);
+  };
 
   return (
     <>
@@ -53,8 +65,20 @@ export const Login = () => {
               onChange={handleuserpassword}
             />
           </div>
-          <button className="btn btn-primary" type="submit">
-            Login
+          <button
+            className={
+              Loading === true ? "btn btn-primary disabled" : "btn btn-primary"
+            }
+            type="submit"
+          >
+            {Loading === true ? (
+              <span>
+                <span className="spinner-border spinner-border-sm "></span>
+                Checking
+              </span>
+            ) : (
+              <span>Login</span>
+            )}
           </button>
           <p>
             Don't have an account? <Link to="/signup">Sign up</Link> now.

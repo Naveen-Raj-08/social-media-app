@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-export const Header = ({ loginmodal, signupmodal }) => {
+export const Header = () => {
   return (
     <div className="page__header">
       <div className="row align-items-center">
@@ -14,16 +14,6 @@ export const Header = ({ loginmodal, signupmodal }) => {
             <ul className="list list-unstyled d-flex align-items-center">
               <li className="link mx-2">
                 <Link to="/profile">My Profile</Link>
-              </li>
-              <li className="link mx-2">
-                <Button varient="primary" type="button" onClick={loginmodal}>
-                  Login
-                </Button>
-              </li>
-              <li className="link mx-2">
-                <Button varient="primary" type="button" onClick={signupmodal}>
-                  Signup
-                </Button>
               </li>
               <li className="link mx-2">
                 <Button varient="primary">Log out</Button>

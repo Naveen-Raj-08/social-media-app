@@ -19,6 +19,13 @@ body {
   overflow-x: hidden;
 }
 
+.form-error {
+  color: #ff0000;
+  font-size: 15px;
+  display: inline-block;
+  min-height: 20px;
+}
+
 .page__header {
   padding: 1.5rem 0;
   .list {
