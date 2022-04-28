@@ -9,6 +9,7 @@ export const Login = () => {
   const [UserPassword, setUserPassword] = useState("");
   const [Users, setUsers] = useState(null);
   const [Loading, setLoading] = useState(false);
+  const [Error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -42,14 +43,21 @@ export const Login = () => {
         setLoading(false);
         navigate("/home");
       }, 1500);
+    } else {
+      setError("Man check your credentials.");
+      setLoading(false);
     }
   };
-
   return (
     <>
       <title>Login Page</title>
       <div className="form">
         <h2 className="display-5 text-capitalize">Login</h2>
+        {!Error ? (
+          <p className="form-error"></p>
+        ) : (
+          <p className="form-error">{Error}</p>
+        )}
         <form className="pt-2" onSubmit={handlelogin} autoComplete="off">
           <div className="fieldset">
             <input

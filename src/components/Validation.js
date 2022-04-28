@@ -34,7 +34,11 @@ export const validateUser = (users, currentUser, currentPassword) => {
     if (user.data.Usermail === currentUser) {
       if (user.data.Userpassword === currentPassword) {
         isUserAvailable = true;
+      } else {
+        isUserAvailable = false;
       }
+    } else {
+      isUserAvailable = false;
     }
   });
 
