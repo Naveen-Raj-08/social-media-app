@@ -14,18 +14,19 @@ export const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPost = async () => {
-      const querySnapshot = await getDocs(collection(DB, "users"));
-      const users = [];
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        users.push({ id: doc.id, data: doc.data() });
-      });
-      setUsers(users);
-    };
+    
     fetchPost();
   }, [Users]);
 
+  const fetchPost = async () => {
+    const querySnapshot = await getDocs(collection(DB, "users"));
+    const users = [];
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      users.push({ id: doc.id, data: doc.data() });
+    });
+    setUsers(users);
+  };
   const handleuseremail = (e) => {
     setUserMail(e.target.value);
   };
@@ -41,6 +42,7 @@ export const Login = () => {
         setUserMail("");
         setUserPassword("");
         setLoading(false);
+        localStorage.setItem("isAuth", true);
         navigate("/home");
       }, 1500);
     } else {
